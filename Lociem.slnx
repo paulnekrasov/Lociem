@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/Models/">
+    <File Path="Item.cs" />
+    <File Path="Storagelocation.cs" />
+  </Folder>
+  <Folder Name="/Services/">
+    <File Path="ItemManager.cs" />
+    <File Path="StorageLocationManager.cs" />
+  </Folder>
+  <Project Path="Lociem/Lociem.csproj" />
+</Solution>
