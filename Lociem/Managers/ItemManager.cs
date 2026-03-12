@@ -4,12 +4,11 @@ using System.Collections.Generic;
 using System.Text;
 using Lociem.Interfaces;
 
-namespace Lociem.Services
+namespace Lociem.Managers
 {
     public class ItemManager : IRepository<Item>
     {
-        List<Item> items = new List<Item>();
-        
+       private List<Item> items = new List<Item>();
         public void Add(Item item)
         {
             items.Add(item);

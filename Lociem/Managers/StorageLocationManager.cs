@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Text;
 using Lociem.Interfaces;
 
-namespace Lociem.Services
+namespace Lociem.Managers
 {
     public class StorageLocationManager : IRepository<StorageLocation>
     {
-        List<StorageLocation> storageLocations = new List<StorageLocation>();
+        private List<StorageLocation> storageLocations = new List<StorageLocation>();
 
         public void Add(StorageLocation storageLocation)
         {
