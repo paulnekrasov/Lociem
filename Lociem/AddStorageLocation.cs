@@ -1,17 +1,23 @@
-﻿using System;
+﻿using Lociem.Managers;
+using Lociem.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using Lociem.Models;
-using Lociem.Managers;
+using System.Xml.Linq;
 
 namespace Lociem
 {
     public partial class AddStorageLocation : Form
     {
+
+        public string LocationName => textBox1.Text;
+        public string LocationDescription => textBox2.Text;
+
+
         public AddStorageLocation()
         {
             InitializeComponent();
@@ -27,10 +33,21 @@ namespace Lociem
            
         }
 
-        private void button1_Click(object sender, EventArgs e) {}
+        private void button1_Click(object sender, EventArgs e) {
+          DialogResult = DialogResult.OK;
+           Close();
+
+            if (string.IsNullOrWhiteSpace(LocationName))
+            {
+                MessageBox.Show("Name cannot be empty.");
+                return;
+            }
+
+        }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            DialogResult = DialogResult.Cancel;
             Close();
         }
 

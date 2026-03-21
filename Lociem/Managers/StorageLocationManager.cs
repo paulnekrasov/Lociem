@@ -45,5 +45,9 @@ namespace Lociem.Managers
         
         }
 
+        internal void Add(Point location)
+        {
+            throw new NotImplementedException();
+        }
     }
     }
