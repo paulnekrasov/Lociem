@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Lociem.Interfaces;
 
 namespace Lociem.Models
 {
-    public class StorageLocation
+    public class StorageLocation : IEntity
     {
         public int Id { get; private set; }
+        int IEntity.Id { get => Id; set => Id = value; }
         public string Name { get; private set; }
         public string Description { get; private set; }
 
-        public StorageLocation(int Id, string Name, string Description) {
+        public StorageLocation( string Name, string Description) {
 
-            this.Id = Id;
+            
             this.Name = Name;
             this.Description = Description;
         
