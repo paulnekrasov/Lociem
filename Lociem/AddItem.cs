@@ -12,10 +12,26 @@ namespace Lociem
 {
     public partial class AddItem : Form
     {
-        public AddItem()
+        private readonly List<StorageLocation> _storageLocations = new List<StorageLocation>();
+
+        public string ItemName => textBox1.Text;
+        public string ItemDescription => textBox2.Text;
+        public StorageLocation? SelectedStorageLocation => comboBox1.SelectedItem as StorageLocation;
+
+        public AddItem(List<StorageLocation> storageLocations)
         {
             InitializeComponent();
+            if (storageLocations != null)
+            {
+                _storageLocations.AddRange(storageLocations);
+            }
+
+            comboBox1.DataSource = _storageLocations;
+            comboBox1.DisplayMember = nameof(StorageLocation.Name);
+            comboBox1.SelectedIndex = _storageLocations.Count > 0 ? 0 : -1;
         }
+
+    
 
         private void AddItem_Load(object sender, EventArgs e)
         {
@@ -27,10 +43,27 @@ namespace Lociem
            
         }
 
-        private void button1_Click(object sender, EventArgs e) {}
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ItemName))
+            {
+                MessageBox.Show("Name cannot be empty.");
+                return;
+            }
+
+            if (SelectedStorageLocation == null)
+            {
+                MessageBox.Show("Please select a storage location.");
+                return;
+            }
+
+            DialogResult = DialogResult.OK;
+            Close();
+        }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            DialogResult = DialogResult.Cancel;
             Close();
         }
 

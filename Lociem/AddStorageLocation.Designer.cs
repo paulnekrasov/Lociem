@@ -30,8 +30,8 @@
         {
             textBox1 = new TextBox();
             textBox2 = new TextBox();
-            button1 = new Button();
-            button2 = new Button();
+            buttonSaveAddedStorageLocation = new Button();
+            buttonCancelAddingStorageLocation = new Button();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
@@ -42,7 +42,7 @@
             textBox1.Font = new Font("Segoe UI", 8F);
             textBox1.ForeColor = SystemColors.WindowFrame;
             textBox1.Location = new Point(18, 120);
-            textBox1.Margin = new Padding(2, 2, 2, 2);
+            textBox1.Margin = new Padding(2);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(572, 29);
             textBox1.TabIndex = 0;
@@ -53,34 +53,34 @@
             textBox2.Font = new Font("Segoe UI", 8F);
             textBox2.ForeColor = SystemColors.WindowFrame;
             textBox2.Location = new Point(18, 200);
-            textBox2.Margin = new Padding(2, 2, 2, 2);
+            textBox2.Margin = new Padding(2);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(572, 29);
             textBox2.TabIndex = 1;
             textBox2.Text = "Description";
             // 
-            // button1
+            // buttonSaveAddedStorageLocation
             // 
-            button1.BackColor = SystemColors.ButtonHighlight;
-            button1.Location = new Point(465, 317);
-            button1.Margin = new Padding(2, 2, 2, 2);
-            button1.Name = "button1";
-            button1.Size = new Size(115, 36);
-            button1.TabIndex = 2;
-            button1.Text = "Save";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
+            buttonSaveAddedStorageLocation.BackColor = SystemColors.ButtonHighlight;
+            buttonSaveAddedStorageLocation.Location = new Point(465, 317);
+            buttonSaveAddedStorageLocation.Margin = new Padding(2);
+            buttonSaveAddedStorageLocation.Name = "buttonSaveAddedStorageLocation";
+            buttonSaveAddedStorageLocation.Size = new Size(115, 36);
+            buttonSaveAddedStorageLocation.TabIndex = 2;
+            buttonSaveAddedStorageLocation.Text = "Save";
+            buttonSaveAddedStorageLocation.UseVisualStyleBackColor = false;
+            buttonSaveAddedStorageLocation.Click += button1_Click;
             // 
-            // button2
+            // buttonCancelAddingStorageLocation
             // 
-            button2.Location = new Point(18, 317);
-            button2.Margin = new Padding(2, 2, 2, 2);
-            button2.Name = "button2";
-            button2.Size = new Size(115, 36);
-            button2.TabIndex = 3;
-            button2.Text = "Cancel";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            buttonCancelAddingStorageLocation.Location = new Point(18, 317);
+            buttonCancelAddingStorageLocation.Margin = new Padding(2);
+            buttonCancelAddingStorageLocation.Name = "buttonCancelAddingStorageLocation";
+            buttonCancelAddingStorageLocation.Size = new Size(115, 36);
+            buttonCancelAddingStorageLocation.TabIndex = 3;
+            buttonCancelAddingStorageLocation.Text = "Cancel";
+            buttonCancelAddingStorageLocation.UseVisualStyleBackColor = true;
+            buttonCancelAddingStorageLocation.Click += button2_Click;
             // 
             // label1
             // 
@@ -122,14 +122,14 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(627, 376);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(buttonCancelAddingStorageLocation);
+            Controls.Add(buttonSaveAddedStorageLocation);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(textBox2);
             Controls.Add(textBox1);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "AddStorageLocation";
             Text = "AddStorageLocation";
             Load += AddItem_Load;
@@ -141,8 +141,8 @@
 
         private TextBox textBox1;
         private TextBox textBox2;
-        private Button button1;
-        private Button button2;
+        private Button buttonSaveAddedStorageLocation;
+        private Button buttonCancelAddingStorageLocation;
         private Label label1;
         private Label label2;
         private Label label3;

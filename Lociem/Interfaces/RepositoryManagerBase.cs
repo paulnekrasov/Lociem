@@ -44,5 +44,11 @@ namespace Lociem.Interfaces
                 return _entities.Max(i => i.Id) + 1;
             }
         }
+
+        public void LoadAll(List<T> items)
+        {
+            _entities.Clear();
+            _entities.AddRange(items);
+        }
     }
 }
