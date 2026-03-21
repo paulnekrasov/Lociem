@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Lociem.Interfaces
 {
-    public interface IRepository<T>
+    public interface IRepository<T> 
     {
 
         void Add(T item);
