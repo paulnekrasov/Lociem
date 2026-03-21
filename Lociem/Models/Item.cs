@@ -1,23 +1,23 @@
-﻿using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
+using Lociem.Interfaces;
 namespace Lociem.Models
 {
-    public class Item
+    public class Item : IEntity
     {
         public int Id { get; private set; }
+        int IEntity.Id { get => Id; set => Id = value; }
         public string Name { get; private set; }
         public string Description { get; private set; }
-        public StorageLocation StorageLocation { get; private set; }
+        public StorageLocation? StorageLocation { get; internal set; }
 
-        public Item(int Id, string Name, string Description, StorageLocation storageLocation)
+        public int StorageLocationId { get; internal set; }
+
+        public Item(string Name, string Description, StorageLocation storageLocation)
         {
-            this.Id = Id;
             this.Name = Name;
             this.Description = Description;
             this.StorageLocation = storageLocation;
+            this.StorageLocationId = storageLocation.Id;
         }
         public void Rename(string newName)
         {
@@ -46,6 +46,7 @@ namespace Lociem.Models
             }
 
            this.StorageLocation = storageLocation;
+           this.StorageLocationId = storageLocation.Id;
 
         }
     }

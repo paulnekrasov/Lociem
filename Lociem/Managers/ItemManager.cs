@@ -1,50 +1,32 @@
 ﻿using Lociem.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Lociem.Interfaces;
 
 namespace Lociem.Managers
 {
-    public class ItemManager : IRepository<Item>
+    public class ItemManager : RepositoryManagerBase<Item>
     {
-       private List<Item> items = new List<Item>();
-        public void Add(Item item)
+        public override void Update(Item item)
         {
-            items.Add(item);
-        }
+            ArgumentNullException.ThrowIfNull(item);
 
-       public void Delete(Item item)
-        {
-
-            Item? itemToDelete = items.Find(i => i.Id == item.Id);
-
-            if (itemToDelete != null)
+            Item? existingItem = _entities.Find(i => i.Id == item.Id);
+            if (existingItem == null)
             {
-                items.Remove(itemToDelete);
+                throw new InvalidOperationException($"Item with Id of {item.Id} was not found.");
+            }
+
+            existingItem.Rename(item.Name);
+            existingItem.ChangeDescription(item.Description);
+            if (item.StorageLocation != null)
+            {
+                existingItem.AssignToStorageLocation(item.StorageLocation);
             }
         }
-        public void Update(Item item)
-        {
 
-            Item? itemcheck = items.Find(i => i.Id == item.Id);      
-            itemcheck?.Rename(item.Name);
-            itemcheck?.ChangeDescription(item.Description);
-            itemcheck?.AssignToStorageLocation(item.StorageLocation);
-        }
-
-        public Item? FindbyName(string name)
+        public override List<Item> FindbyName(string name)
         {
-            return items.Find(i => i.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
-        }
-
-        public Item? FindbyId(int id)
-        {
-            return items.Find(i => i.Id == id);
-        }
-        public List<Item> GetAll()
-        {
-            return new List<Item>(items);
+            ArgumentException.ThrowIfNullOrWhiteSpace(name);
+            return _entities.Where(s => s.Name.Contains(name, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
 

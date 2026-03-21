@@ -1,51 +1,49 @@
 ﻿using Lociem.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Lociem.Interfaces;
 
 namespace Lociem.Managers
 {
-    public class StorageLocationManager : IRepository<StorageLocation>
+    public class StorageLocationManager : RepositoryManagerBase<StorageLocation>
     {
-        private List<StorageLocation> storageLocations = new List<StorageLocation>();
-
-        public void Add(StorageLocation storageLocation)
+        public override void Update(StorageLocation storageLocation)
         {
-            storageLocations.Add(storageLocation);
+            ArgumentNullException.ThrowIfNull(storageLocation);
+            StorageLocation? existinglocationCheck = _entities.Find(s => s.Id == storageLocation.Id);
+
+            if (existinglocationCheck == null)
+            {
+                throw new InvalidOperationException($"StorageLocation with Id of {storageLocation.Id} was not found.");
+            }
+            existinglocationCheck.Rename(storageLocation.Name);
+            existinglocationCheck.ChangeDescription(storageLocation.Description);
         }
 
-        public void Delete(StorageLocation storageLocation)
+        public override List<StorageLocation> FindbyName(string name)
         {
+            ArgumentException.ThrowIfNullOrWhiteSpace(name);
+            return _entities.Where(i => i.Name.Contains(name, StringComparison.OrdinalIgnoreCase)).ToList();
+        }
 
-            StorageLocation? locationToDelete = storageLocations.Find(s => s.Id == storageLocation.Id);
-
-            if (locationToDelete != null)
+        public void Delete(StorageLocation location, List<Item> items)
+        {
+            ArgumentNullException.ThrowIfNull(location);
+            ArgumentNullException.ThrowIfNull(items);
+            bool hasItems = items.Any(i => i.StorageLocationId == location.Id);
+            if (hasItems)
             {
-                storageLocations.Remove(locationToDelete);
+                throw new InvalidOperationException($"Cannot delete StorageLocation with Id of {location.Id} because it has associated items.");
             }
 
+            else
+            {
+                _entities.Remove(location);
+            }
         }
 
-        public void Update(StorageLocation storageLocation)
-        {
-            StorageLocation? locationCheck = storageLocations.Find(s => s.Id == storageLocation.Id);
-            locationCheck?.Rename(storageLocation.Name);
-            locationCheck?.ChangeDescription(storageLocation.Description);
+         public override void Delete(StorageLocation location) { 
+            throw new InvalidOperationException("Use Delete(location, items) instead to ensure there is no associated items with the location."); 
+        
         }
 
-        public StorageLocation? FindbyName(string name)
-        {
-            return storageLocations.Find(s => s.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
-        }
-
-        public StorageLocation? FindbyId(int id)
-        {
-            return storageLocations.Find(s => s.Id == id);
-        }
-        public List<StorageLocation> GetAll() {
-
-            return new List<StorageLocation>(storageLocations);
-        }
     }
-}
+    }
