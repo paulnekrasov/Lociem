@@ -19,6 +19,8 @@ namespace Lociem.Models
             this.StorageLocation = storageLocation;
             this.StorageLocationId = storageLocation.Id;
         }
+
+        public Item() { Name = ""; Description = ""; }
         public void Rename(string newName)
         {
             if (string.IsNullOrWhiteSpace(newName))

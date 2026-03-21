@@ -20,6 +20,8 @@ namespace Lociem.Models
         
         }
 
+        public StorageLocation() { Name = ""; Description = ""; }
+
         public void Rename(string newName) {
 
             if (string.IsNullOrWhiteSpace(newName)) {              
