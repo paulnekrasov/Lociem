@@ -28,7 +28,7 @@ namespace Lociem.Managers
             Item? existingItem = _entities.Find(i => i.Id == item.Id);
             if (existingItem == null)
             {
-                throw new InvalidOperationException($"Item with Id of {item.Id} was not found.");
+                throw new InvalidOperationException($"Item with ID {item.Id} was not found.");
             }
 
             existingItem.Rename(item.Name);

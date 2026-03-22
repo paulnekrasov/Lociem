@@ -22,7 +22,7 @@ namespace Lociem.Managers
 
             if (existinglocationCheck == null)
             {
-                throw new InvalidOperationException($"StorageLocation with Id of {storageLocation.Id} was not found.");
+                throw new InvalidOperationException($"Storage location with ID {storageLocation.Id} was not found.");
             }
             existinglocationCheck.Rename(storageLocation.Name);
             existinglocationCheck.ChangeDescription(storageLocation.Description);
@@ -42,7 +42,7 @@ namespace Lociem.Managers
             bool hasItems = items.Any(i => i.StorageLocationId == location.Id);
             if (hasItems)
             {
-                throw new InvalidOperationException($"Cannot delete StorageLocation with Id of {location.Id} because it has associated items.");
+                throw new InvalidOperationException($"Cannot delete storage location with ID {location.Id} because it has associated items.");
             }
 
             else
