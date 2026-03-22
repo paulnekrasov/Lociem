@@ -8,8 +8,32 @@ namespace Lociem.Models
         int IEntity.Id { get => Id; set => Id = value; }
         public string Name { get; private set; }
         public string Description { get; private set; }
-        public StorageLocation? StorageLocation { get; internal set; }
 
+        private StorageLocation? _storageLocation;
+        public StorageLocation StorageLocation
+        {
+
+            get
+            {
+
+                if (_storageLocation == null)
+                {
+                    throw new InvalidOperationException("Storage location is not assigned.");
+
+                }
+
+                return _storageLocation;
+
+
+            }
+
+            private set
+            {
+
+                _storageLocation = value;
+            }
+
+        }
         public int StorageLocationId { get; internal set; }
 
         public Item(string Name, string Description, StorageLocation storageLocation)

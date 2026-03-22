@@ -13,12 +13,15 @@ namespace Lociem
     {
         public LociemApp()
         {
+            _dataManager = new DataManager();
+            _itemManager = new ItemManager(_dataManager);
+            _locationManager = new StorageLocationManager(_dataManager);
             InitializeComponent();
         }
 
-        private ItemManager _itemManager = new ItemManager();
-        private StorageLocationManager _locationManager = new StorageLocationManager();
-        private DataManager _dataManager = new DataManager();
+        private DataManager _dataManager;
+        private ItemManager _itemManager;
+        private StorageLocationManager _locationManager;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -36,23 +39,39 @@ namespace Lociem
         private void ApplyItemsFilter()
         {
             string searchText = textBoxSearchItems.Text;
-            var items = string.IsNullOrWhiteSpace(searchText)
-                ? _itemManager.GetAll()
-                : _itemManager.FindbyName(searchText);
+            List <Item> items;
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                items = _itemManager.GetAll();
+            }
+            else
+            {
+                items = _itemManager.FindbyName(searchText);
+            }
 
             listBoxItems.Items.Clear();
             foreach (var item in items)
             {
-                listBoxItems.Items.Add($"{item.Name} - {item.Description}");
+
+                listBoxItems.Items.Add($"{item.Name} - {item.Description} ({item.StorageLocation.Name})");
             }
         }
 
         private void ApplyStorageLocationsFilter()
         {
             string searchText = textBoxSearchStorageLocations.Text;
-            var locations = string.IsNullOrWhiteSpace(searchText)
-                ? _locationManager.GetAll()
-                : _locationManager.FindbyName(searchText);
+            List<StorageLocation> locations;
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+
+                locations = _locationManager.GetAll();
+
+            }
+            else
+            {
+
+                locations = _locationManager.FindbyName(searchText);
+            }
 
             listBoxStorageLocations.Items.Clear();
             foreach (var location in locations)
@@ -110,9 +129,19 @@ namespace Lociem
             }
 
             string searchText = textBoxSearchItems.Text;
-            var items = string.IsNullOrWhiteSpace(searchText)
-                ? _itemManager.GetAll()
-                : _itemManager.FindbyName(searchText);
+            List <Item> items;
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                items = _itemManager.GetAll();
+            }
+
+            else
+            {
+
+               items = _itemManager.FindbyName(searchText);
+
+            }
+   
             var storageLocations = _locationManager.GetAll();
             var item = items[listBoxItems.SelectedIndex];
             var form = new EditItem(item.Name, item.Description, storageLocations, item.StorageLocation);
@@ -144,9 +173,16 @@ namespace Lociem
             }
 
             string searchText = textBoxSearchItems.Text;
-            var items = string.IsNullOrWhiteSpace(searchText)
-                ? _itemManager.GetAll()
-                : _itemManager.FindbyName(searchText);
+            List<Item> items;
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                items = _itemManager.GetAll();
+            }
+            else
+            {
+                items = _itemManager.FindbyName(searchText);
+            }
+
             var item = items[listBoxItems.SelectedIndex];
             _itemManager.Delete(item);
             ApplyItemsFilter();
@@ -160,10 +196,18 @@ namespace Lociem
                 MessageBox.Show("Please select a location to edit.");
                 return;
             }
+
             string searchText = textBoxSearchStorageLocations.Text;
-            var locations = string.IsNullOrWhiteSpace(searchText)
-                ? _locationManager.GetAll()
-                : _locationManager.FindbyName(searchText);
+            List<StorageLocation> locations;
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                locations = _locationManager.GetAll();
+            }
+            else
+            {
+                locations = _locationManager.FindbyName(searchText);
+            }
+
             var location = locations[listBoxStorageLocations.SelectedIndex];
             var form = new EditStorageLocation(location.Name, location.Description);
 
@@ -201,9 +245,16 @@ namespace Lociem
             else
             {
                 string searchText = textBoxSearchStorageLocations.Text;
-                var locations = string.IsNullOrWhiteSpace(searchText)
-                    ? _locationManager.GetAll()
-                    : _locationManager.FindbyName(searchText);
+                List<StorageLocation> locations;
+                if (string.IsNullOrWhiteSpace(searchText))
+                {
+                    locations = _locationManager.GetAll();
+                }
+                else
+                {
+                    locations = _locationManager.FindbyName(searchText);
+                }
+
                 var items = _itemManager.GetAll();
                 var location = locations[listBoxStorageLocations.SelectedIndex];
 
@@ -230,12 +281,6 @@ namespace Lociem
         private void textBoxSearchStorageLocations_TextChanged(object sender, EventArgs e)
         {
             ApplyStorageLocationsFilter();
-        }
-
-        private void LociemApp_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            _dataManager.SaveItems(_itemManager.GetAll());
-            _dataManager.SaveLocations(_locationManager.GetAll());
         }
               
     }

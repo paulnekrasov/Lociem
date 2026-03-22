@@ -8,7 +8,7 @@ namespace Lociem
 {
     public partial class EditItem : Form
     {
-        private  List<StorageLocation> _storageLocations = new List<StorageLocation>();
+        private  List<StorageLocation> _storageLocations;
 
         public string NewName => textBoxName.Text;
         public string NewDescription => textBoxDescription.Text;
@@ -20,7 +20,7 @@ namespace Lociem
             InitializeComponent();
             textBoxName.Text = name;
             textBoxDescription.Text = description;
-        _storageLocations = storageLocations ?? new List<StorageLocation>();
+          _storageLocations = storageLocations ?? new List<StorageLocation>();
 
             comboBoxStorageLocation.DataSource = _storageLocations;
             comboBoxStorageLocation.DisplayMember = "Name";

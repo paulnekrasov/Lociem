@@ -5,6 +5,16 @@ namespace Lociem.Managers
 {
     public class StorageLocationManager : RepositoryManagerBase<StorageLocation>
     {
+        public StorageLocationManager(DataManager dataManager) : base(dataManager)
+        {
+        }
+
+        public override void Add(StorageLocation storageLocation)
+        {
+            base.Add(storageLocation);
+            SaveToFile();
+        }
+
         public override void Update(StorageLocation storageLocation)
         {
             ArgumentNullException.ThrowIfNull(storageLocation);
@@ -16,6 +26,7 @@ namespace Lociem.Managers
             }
             existinglocationCheck.Rename(storageLocation.Name);
             existinglocationCheck.ChangeDescription(storageLocation.Description);
+            SaveToFile();
         }
 
         public override List<StorageLocation> FindbyName(string name)
@@ -36,18 +47,20 @@ namespace Lociem.Managers
 
             else
             {
-                _entities.Remove(location);
+                Delete(location);
             }
         }
 
          public override void Delete(StorageLocation location) { 
-            throw new InvalidOperationException("Use Delete(location, items) instead to ensure there is no associated items with the location."); 
-        
+            base.Delete(location);
+            SaveToFile();
         }
 
-        internal void Add(Point location)
+        private void SaveToFile()
         {
-            throw new NotImplementedException();
+            _dataManager.SaveLocations(GetAll());
         }
+
+
     }
     }

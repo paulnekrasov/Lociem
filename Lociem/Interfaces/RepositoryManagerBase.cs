@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lociem.Managers;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,16 +8,22 @@ namespace Lociem.Interfaces
     public abstract class RepositoryManagerBase<T> : IRepository<T> where T : IEntity
     {
         protected List<T> _entities = new List<T>();
-        
-        public void Add(T item)
+        protected DataManager _dataManager;
+
+        protected RepositoryManagerBase(DataManager dataManager)
         {
-            item.Id = GenerateId();
-            _entities.Add(item);
+            _dataManager = dataManager;
         }
         
-        public virtual void Delete(T item)
+        public virtual void Add(T entity)
         {
-            _entities.Remove(item);
+            entity.Id = GenerateId();
+            _entities.Add(entity);
+        }
+        
+        public virtual void Delete(T entity)
+        {
+            _entities.Remove(entity);
         }
         
         public T? FindbyId(int id)
@@ -31,7 +38,7 @@ namespace Lociem.Interfaces
 
         public abstract List<T> FindbyName(string name);
 
-        public abstract void Update(T item);
+        public abstract void Update(T entity);
 
         protected int GenerateId()
         {
@@ -45,10 +52,10 @@ namespace Lociem.Interfaces
             }
         }
 
-        public void LoadAll(List<T> items)
+        public void LoadAll(List<T> entities)
         {
             _entities.Clear();
-            _entities.AddRange(items);
+            _entities.AddRange(entities);
         }
     }
 }
