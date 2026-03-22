@@ -5,6 +5,16 @@ namespace Lociem.Managers
 {
     public class StorageLocationManager : RepositoryManagerBase<StorageLocation>
     {
+        public StorageLocationManager(DataManager dataManager) : base(dataManager)
+        {
+        }
+
+        public override void Add(StorageLocation storageLocation)
+        {
+            base.Add(storageLocation);
+            SaveToFile();
+        }
+
         public override void Update(StorageLocation storageLocation)
         {
             ArgumentNullException.ThrowIfNull(storageLocation);
@@ -12,10 +22,11 @@ namespace Lociem.Managers
 
             if (existinglocationCheck == null)
             {
-                throw new InvalidOperationException($"StorageLocation with Id of {storageLocation.Id} was not found.");
+                throw new InvalidOperationException($"Storage location with ID {storageLocation.Id} was not found.");
             }
             existinglocationCheck.Rename(storageLocation.Name);
             existinglocationCheck.ChangeDescription(storageLocation.Description);
+            SaveToFile();
         }
 
         public override List<StorageLocation> FindbyName(string name)
@@ -31,23 +42,25 @@ namespace Lociem.Managers
             bool hasItems = items.Any(i => i.StorageLocationId == location.Id);
             if (hasItems)
             {
-                throw new InvalidOperationException($"Cannot delete StorageLocation with Id of {location.Id} because it has associated items.");
+                throw new InvalidOperationException($"Cannot delete storage location with ID {location.Id} because it has associated items.");
             }
 
             else
             {
-                _entities.Remove(location);
+                Delete(location);
             }
         }
 
          public override void Delete(StorageLocation location) { 
-            throw new InvalidOperationException("Use Delete(location, items) instead to ensure there is no associated items with the location."); 
-        
+            base.Delete(location);
+            SaveToFile();
         }
 
-        internal void Add(Point location)
+        private void SaveToFile()
         {
-            throw new NotImplementedException();
+            _dataManager.SaveLocations(GetAll());
         }
+
+
     }
     }

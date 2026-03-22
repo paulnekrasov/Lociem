@@ -8,8 +8,32 @@ namespace Lociem.Models
         int IEntity.Id { get => Id; set => Id = value; }
         public string Name { get; private set; }
         public string Description { get; private set; }
-        public StorageLocation? StorageLocation { get; internal set; }
 
+        private StorageLocation? _storageLocation;
+        public StorageLocation StorageLocation
+        {
+
+            get
+            {
+
+                if (_storageLocation == null)
+                {
+                    throw new InvalidOperationException("Storage location is not assigned.");
+
+                }
+
+                return _storageLocation;
+
+
+            }
+
+            private set
+            {
+
+                _storageLocation = value;
+            }
+
+        }
         public int StorageLocationId { get; internal set; }
 
         public Item(string Name, string Description, StorageLocation storageLocation)
@@ -25,7 +49,7 @@ namespace Lociem.Models
         {
             if (string.IsNullOrWhiteSpace(newName))
             {
-                throw new Exception("Name cannot be empty or whitespace.");
+                throw new ArgumentException("Name cannot be empty or whitespace.", nameof(newName));
             }
             Name = newName;
         }
@@ -34,7 +58,7 @@ namespace Lociem.Models
 
             if (string.IsNullOrWhiteSpace(newDescription))
             {
-                throw new Exception("Description cannot be empty or whitespace.");
+                throw new ArgumentException("Description cannot be empty or whitespace.", nameof(newDescription));
             }
             Description = newDescription;
 
@@ -44,7 +68,7 @@ namespace Lociem.Models
 
             if (storageLocation == null)
             {
-                throw new Exception("Storage location cannot be null.");
+                throw new ArgumentNullException(nameof(storageLocation), "Storage location cannot be null.");
             }
 
            this.StorageLocation = storageLocation;

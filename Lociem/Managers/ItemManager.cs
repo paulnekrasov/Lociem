@@ -5,6 +5,22 @@ namespace Lociem.Managers
 {
     public class ItemManager : RepositoryManagerBase<Item>
     {
+        public ItemManager(DataManager dataManager) : base(dataManager)
+        {
+        }
+
+        public override void Add(Item item)
+        {
+            base.Add(item);
+            SaveToFile();
+        }
+
+        public override void Delete(Item item)
+        {
+            base.Delete(item);
+            SaveToFile();
+        }
+
         public override void Update(Item item)
         {
             ArgumentNullException.ThrowIfNull(item);
@@ -12,7 +28,7 @@ namespace Lociem.Managers
             Item? existingItem = _entities.Find(i => i.Id == item.Id);
             if (existingItem == null)
             {
-                throw new InvalidOperationException($"Item with Id of {item.Id} was not found.");
+                throw new InvalidOperationException($"Item with ID {item.Id} was not found.");
             }
 
             existingItem.Rename(item.Name);
@@ -21,6 +37,8 @@ namespace Lociem.Managers
             {
                 existingItem.AssignToStorageLocation(item.StorageLocation);
             }
+
+            SaveToFile();
         }
 
         public override List<Item> FindbyName(string name)
@@ -29,6 +47,10 @@ namespace Lociem.Managers
             return _entities.Where(s => s.Name.Contains(name, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
+        private void SaveToFile()
+        {
+            _dataManager.SaveItems(GetAll());
+        }
 
     }
 }

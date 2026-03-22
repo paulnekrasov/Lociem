@@ -221,7 +221,6 @@
             Margin = new Padding(2);
             Name = "LociemApp";
             Text = "Lociem";
-            FormClosing += LociemApp_FormClosing;
             Load += Form1_Load;
             tabControlMain.ResumeLayout(false);
             tabPageItems.ResumeLayout(false);

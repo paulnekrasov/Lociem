@@ -25,7 +25,7 @@ namespace Lociem.Models
         public void Rename(string newName) {
 
             if (string.IsNullOrWhiteSpace(newName)) {              
-                throw new Exception("Name cannot be empty or whitespace.");
+                throw new ArgumentException("Name cannot be empty or whitespace.", nameof(newName));
             }
               Name = newName;
 
@@ -35,7 +35,7 @@ namespace Lociem.Models
 
             if (string.IsNullOrWhiteSpace(newDescription))
             {
-                throw new Exception("Description cannot be empty or whitespace.");
+                throw new ArgumentException("Description cannot be empty or whitespace.", nameof(newDescription));
             }
             Description = newDescription;
 
