@@ -69,7 +69,7 @@ namespace Lociem.Managers
 
                 else
                 {
-                    throw new Exception($"Storage location with ID {item.StorageLocationId} not found for item {item.Name} (ID: {item.Id})");
+                    throw new InvalidOperationException($"Storage location with ID {item.StorageLocationId} not found for item {item.Name} (ID: {item.Id})");
                 }
             }
 

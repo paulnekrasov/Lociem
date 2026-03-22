@@ -49,7 +49,7 @@ namespace Lociem.Models
         {
             if (string.IsNullOrWhiteSpace(newName))
             {
-                throw new Exception("Name cannot be empty or whitespace.");
+                throw new ArgumentException("Name cannot be empty or whitespace.", nameof(newName));
             }
             Name = newName;
         }
@@ -58,7 +58,7 @@ namespace Lociem.Models
 
             if (string.IsNullOrWhiteSpace(newDescription))
             {
-                throw new Exception("Description cannot be empty or whitespace.");
+                throw new ArgumentException("Description cannot be empty or whitespace.", nameof(newDescription));
             }
             Description = newDescription;
 
@@ -68,7 +68,7 @@ namespace Lociem.Models
 
             if (storageLocation == null)
             {
-                throw new Exception("Storage location cannot be null.");
+                throw new ArgumentNullException(nameof(storageLocation), "Storage location cannot be null.");
             }
 
            this.StorageLocation = storageLocation;
