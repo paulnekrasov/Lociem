@@ -52,8 +52,7 @@ namespace Lociem
             listBoxItems.Items.Clear();
             foreach (var item in items)
             {
-
-                listBoxItems.Items.Add($"{item.Name} - {item.Description} ({item.StorageLocation.Name})");
+                listBoxItems.Items.Add(item);
             }
         }
 
@@ -122,28 +121,13 @@ namespace Lociem
 
         private void buttonEditItems_Click(object sender, EventArgs e)
         {
-            if (listBoxItems.SelectedIndex == -1)
+            if (listBoxItems.SelectedItem is not Item item)
             {
                 MessageBox.Show("Please select an item to edit.");
                 return;
             }
 
-            string searchText = textBoxSearchItems.Text;
-            List <Item> items;
-            if (string.IsNullOrWhiteSpace(searchText))
-            {
-                items = _itemManager.GetAll();
-            }
-
-            else
-            {
-
-               items = _itemManager.FindbyName(searchText);
-
-            }
-   
             var storageLocations = _locationManager.GetAll();
-            var item = items[listBoxItems.SelectedIndex];
             var form = new EditItem(item.Name, item.Description, storageLocations, item.StorageLocation);
 
             if (form.ShowDialog() == DialogResult.OK)
@@ -166,24 +150,12 @@ namespace Lociem
 
         private void buttonDeleteItems_Click(object sender, EventArgs e)
         {
-            if (listBoxItems.SelectedIndex == -1)
+            if (listBoxItems.SelectedItem is not Item item)
             {
                 MessageBox.Show("Please select an item to delete.");
                 return;
             }
 
-            string searchText = textBoxSearchItems.Text;
-            List<Item> items;
-            if (string.IsNullOrWhiteSpace(searchText))
-            {
-                items = _itemManager.GetAll();
-            }
-            else
-            {
-                items = _itemManager.FindbyName(searchText);
-            }
-
-            var item = items[listBoxItems.SelectedIndex];
             _itemManager.Delete(item);
             ApplyItemsFilter();
 

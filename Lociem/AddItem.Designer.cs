@@ -93,7 +93,7 @@
             label1.TabIndex = 4;
             label1.Text = "Add Item";
             label1.TextAlign = ContentAlignment.MiddleLeft;
-            label1.Click += label1_Click_1;
+            
             // 
             // comboBox1
             // 
