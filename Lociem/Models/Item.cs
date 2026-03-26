@@ -75,5 +75,11 @@ namespace Lociem.Models
            this.StorageLocationId = storageLocation.Id;
 
         }
+
+        public override string ToString()
+        {
+            string locationName = _storageLocation?.Name ?? "Unassigned";
+            return $"{Name} - {Description} ({locationName})";
+        }
     }
 }

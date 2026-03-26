@@ -41,7 +41,7 @@ namespace Lociem.Managers
             SaveToFile();
         }
 
-        public override List<Item> FindbyName(string name)
+        public override List<Item> FindByName(string name)
         {
             ArgumentException.ThrowIfNullOrWhiteSpace(name);
             return _entities.Where(s => s.Name.Contains(name, StringComparison.OrdinalIgnoreCase)).ToList();

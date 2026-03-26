@@ -40,24 +40,24 @@
             // textBox1
             // 
             textBox1.Font = new Font("Segoe UI", 8F);
-            textBox1.ForeColor = SystemColors.WindowFrame;
+            textBox1.ForeColor = SystemColors.WindowText;
             textBox1.Location = new Point(18, 95);
             textBox1.Margin = new Padding(5, 2, 2, 2);
             textBox1.Name = "textBox1";
+            textBox1.PlaceholderText = "Your item name";
             textBox1.Size = new Size(572, 29);
             textBox1.TabIndex = 0;
-            textBox1.Text = "Your item name";
             // 
             // textBox2
             // 
             textBox2.Font = new Font("Segoe UI", 8F);
-            textBox2.ForeColor = SystemColors.WindowFrame;
+            textBox2.ForeColor = SystemColors.WindowText;
             textBox2.Location = new Point(18, 143);
             textBox2.Margin = new Padding(2, 2, 2, 2);
             textBox2.Name = "textBox2";
+            textBox2.PlaceholderText = "Item Description";
             textBox2.Size = new Size(572, 29);
             textBox2.TabIndex = 1;
-            textBox2.Text = "Item Description";
             // 
             // button1
             // 
@@ -93,7 +93,7 @@
             label1.TabIndex = 4;
             label1.Text = "Add Item";
             label1.TextAlign = ContentAlignment.MiddleLeft;
-            label1.Click += label1_Click_1;
+            
             // 
             // comboBox1
             // 
@@ -104,7 +104,7 @@
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(187, 33);
             comboBox1.TabIndex = 5;
-            comboBox1.Text = "Storagelocation";
+            comboBox1.Text = "Select storage location";
             // 
             // label2
             // 

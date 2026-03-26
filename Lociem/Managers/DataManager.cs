@@ -38,7 +38,18 @@ namespace Lociem.Managers
                 return new List<Item>();
             }
             string json = File.ReadAllText(_itemsFilePath);
-            return JsonSerializer.Deserialize<List<Item>>(json) ?? new List<Item>();
+            List<Item> loadedItems = JsonSerializer.Deserialize<List<Item>>(json) ?? new List<Item>();
+
+            List<Item> cleanedItems = loadedItems
+                .Where(i => !string.IsNullOrWhiteSpace(i.Name) && i.StorageLocationId > 0)
+                .ToList();
+
+            if (cleanedItems.Count != loadedItems.Count)
+            {
+                SaveItems(cleanedItems);
+            }
+
+            return cleanedItems;
         }
 
         public List<StorageLocation> LoadLocations()
@@ -49,7 +60,24 @@ namespace Lociem.Managers
                 return new List<StorageLocation>();
             }
             string json = File.ReadAllText(_storageLocationsFilePath);
-            return JsonSerializer.Deserialize<List<StorageLocation>>(json) ?? new List<StorageLocation>();
+            List<StorageLocation> loadedLocations = JsonSerializer.Deserialize<List<StorageLocation>>(json) ?? new List<StorageLocation>();
+
+            List<StorageLocation> cleanedLocations = new List<StorageLocation>();
+            foreach (StorageLocation location in loadedLocations)
+{
+             bool hasValidName = !string.IsNullOrWhiteSpace(location.Name);
+            if (hasValidName)
+             {
+             cleanedLocations.Add(location);
+             }
+}
+
+            if (cleanedLocations.Count != loadedLocations.Count)
+            {
+                SaveLocations(cleanedLocations);
+            }
+
+            return cleanedLocations;
         }
 
 
@@ -59,7 +87,6 @@ namespace Lociem.Managers
             {
 
                 StorageLocation? location = storageLocations.FirstOrDefault(loc => loc.Id == item.StorageLocationId);
-
 
                 if (location != null)
                 {

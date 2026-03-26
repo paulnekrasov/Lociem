@@ -30,18 +30,21 @@ namespace Lociem
 
         private void label1_Click(object sender, EventArgs e)
         {
-           
+
         }
 
-        private void button1_Click(object sender, EventArgs e) {
-          DialogResult = DialogResult.OK;
-           Close();
+        private void button1_Click(object sender, EventArgs e)
+        {
 
             if (string.IsNullOrWhiteSpace(LocationName))
             {
                 MessageBox.Show("Name cannot be empty.");
                 return;
             }
+            DialogResult = DialogResult.OK;
+            Close();
+
+
 
         }
 
@@ -51,12 +54,12 @@ namespace Lociem
             Close();
         }
 
-        private void label1_Click_1(object sender, EventArgs e) { }
-        
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+        }
 
-        private void label2_Click(object sender, EventArgs e) { }
-       
-        private void label2_Click_1(object sender, EventArgs e) { }
-       
+        private void label2_Click_1(object sender, EventArgs e)
+        {
+        }
     }
 }

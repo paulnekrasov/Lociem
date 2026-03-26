@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Lociem.Interfaces
+﻿namespace Lociem.Interfaces
 {
     public interface IEntity 
     {

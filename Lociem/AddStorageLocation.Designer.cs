@@ -40,24 +40,24 @@
             // textBox1
             // 
             textBox1.Font = new Font("Segoe UI", 8F);
-            textBox1.ForeColor = SystemColors.WindowFrame;
+            textBox1.ForeColor = SystemColors.WindowText;
             textBox1.Location = new Point(18, 120);
             textBox1.Margin = new Padding(2);
             textBox1.Name = "textBox1";
+            textBox1.PlaceholderText = "Name";
             textBox1.Size = new Size(572, 29);
             textBox1.TabIndex = 0;
-            textBox1.Text = "Name";
             // 
             // textBox2
             // 
             textBox2.Font = new Font("Segoe UI", 8F);
-            textBox2.ForeColor = SystemColors.WindowFrame;
+            textBox2.ForeColor = SystemColors.WindowText;
             textBox2.Location = new Point(18, 200);
             textBox2.Margin = new Padding(2);
             textBox2.Name = "textBox2";
+            textBox2.PlaceholderText = "Description";
             textBox2.Size = new Size(572, 29);
             textBox2.TabIndex = 1;
-            textBox2.Text = "Description";
             // 
             // buttonSaveAddedStorageLocation
             // 
