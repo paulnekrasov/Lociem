@@ -20,7 +20,7 @@ namespace Lociem
             InitializeComponent();
             textBoxName.Text = name;
             textBoxDescription.Text = description;
-          _storageLocations = storageLocations ?? new List<StorageLocation>();
+            _storageLocations = storageLocations ?? new List<StorageLocation>();
 
             comboBoxStorageLocation.DataSource = _storageLocations;
             comboBoxStorageLocation.DisplayMember = "Name";

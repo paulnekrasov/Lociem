@@ -88,7 +88,6 @@ namespace Lociem.Managers
 
                 StorageLocation? location = storageLocations.FirstOrDefault(loc => loc.Id == item.StorageLocationId);
 
-
                 if (location != null)
                 {
                     item.AssignToStorageLocation(location);

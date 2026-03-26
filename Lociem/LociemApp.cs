@@ -8,7 +8,6 @@ using System.Xml.Linq;
 
 namespace Lociem
 {
-    [SupportedOSPlatform("windows")]
     public partial class LociemApp : Form
     {
         public LociemApp()
