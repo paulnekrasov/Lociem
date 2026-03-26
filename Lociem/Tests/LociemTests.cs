@@ -10,8 +10,6 @@ namespace Lociem.Tests
     public class LociemTests
     {
 
-
-        // Arrange — підготуй об'єкти
         [Fact]
         public void Rename_Item_Name_Description_Test()
         {
@@ -74,9 +72,5 @@ namespace Lociem.Tests
             Assert.Throws<InvalidOperationException>(() => storageLocationManager.Delete(storageLocation, items));
         }
 
-
-
-        // Act — зроби дію
-        // Assert — перевір результат
     }
 }

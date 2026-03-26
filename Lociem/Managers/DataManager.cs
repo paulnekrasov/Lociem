@@ -40,9 +40,17 @@ namespace Lociem.Managers
             string json = File.ReadAllText(_itemsFilePath);
             List<Item> loadedItems = JsonSerializer.Deserialize<List<Item>>(json) ?? new List<Item>();
 
-            List<Item> cleanedItems = loadedItems
-                .Where(i => !string.IsNullOrWhiteSpace(i.Name) && i.StorageLocationId > 0)
-                .ToList();
+            List<Item> cleanedItems = new List<Item>();
+            foreach (Item item in loadedItems)
+            {
+                bool hasValidName = !string.IsNullOrWhiteSpace(item.Name);
+                bool hasValidStorageLocationId = item.StorageLocationId > 0;
+
+                if (hasValidName && hasValidStorageLocationId)
+                {
+                    cleanedItems.Add(item);
+                }
+            }
 
             if (cleanedItems.Count != loadedItems.Count)
             {
@@ -65,7 +73,7 @@ namespace Lociem.Managers
             List<StorageLocation> cleanedLocations = new List<StorageLocation>();
             foreach (StorageLocation location in loadedLocations)
 {
-             bool hasValidName = !string.IsNullOrWhiteSpace(location.Name);
+            bool hasValidName = !string.IsNullOrWhiteSpace(location.Name);
             if (hasValidName)
              {
              cleanedLocations.Add(location);
