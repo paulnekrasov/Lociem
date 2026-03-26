@@ -26,7 +26,7 @@ namespace Lociem.Interfaces
             _entities.Remove(entity);
         }
         
-        public T? FindbyId(int id)
+        public T? FindById(int id)
         {
             return _entities.Find(i => i.Id == id);
         }
@@ -36,7 +36,7 @@ namespace Lociem.Interfaces
             return new List<T>(_entities);
         }
 
-        public abstract List<T> FindbyName(string name);
+        public abstract List<T> FindByName(string name);
 
         public abstract void Update(T entity);
 

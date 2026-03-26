@@ -133,7 +133,6 @@
             labelItemsWhat.Size = new Size(84, 38);
             labelItemsWhat.TabIndex = 0;
             labelItemsWhat.Text = "Items";
-            labelItemsWhat.Click += labelItemsWhat_Click;
             // 
             // tabPageStorageLocations
             // 
@@ -210,7 +209,6 @@
             labelStorageLocationsWhat.Size = new Size(227, 38);
             labelStorageLocationsWhat.TabIndex = 0;
             labelStorageLocationsWhat.Text = "StorageLocations";
-            labelStorageLocationsWhat.Click += labelStorageLocationsWhat_Click;
             // 
             // LociemApp
             // 

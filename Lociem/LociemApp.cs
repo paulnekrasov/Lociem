@@ -2,9 +2,6 @@ using Lociem.Managers;
 using Lociem.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.Versioning;
-using System.Xml.Linq;
 
 namespace Lociem
 {
@@ -18,9 +15,31 @@ namespace Lociem
             InitializeComponent();
         }
 
-        private DataManager _dataManager;
-        private ItemManager _itemManager;
-        private StorageLocationManager _locationManager;
+        private readonly DataManager _dataManager;
+        private readonly ItemManager _itemManager;
+        private readonly StorageLocationManager _locationManager;
+
+        private List<Item> GetFilteredItems()
+        {
+            string searchText = textBoxSearchItems.Text;
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                return _itemManager.GetAll();
+            }
+
+            return _itemManager.FindByName(searchText);
+        }
+
+        private List<StorageLocation> GetFilteredLocations()
+        {
+            string searchText = textBoxSearchStorageLocations.Text;
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                return _locationManager.GetAll();
+            }
+
+            return _locationManager.FindByName(searchText);
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -37,16 +56,7 @@ namespace Lociem
 
         private void ApplyItemsFilter()
         {
-            string searchText = textBoxSearchItems.Text;
-            List <Item> items;
-            if (string.IsNullOrWhiteSpace(searchText))
-            {
-                items = _itemManager.GetAll();
-            }
-            else
-            {
-                items = _itemManager.FindbyName(searchText);
-            }
+            List<Item> items = GetFilteredItems();
 
             listBoxItems.Items.Clear();
             foreach (var item in items)
@@ -57,45 +67,10 @@ namespace Lociem
 
         private void ApplyStorageLocationsFilter()
         {
-            string searchText = textBoxSearchStorageLocations.Text;
-            List<StorageLocation> locations;
-            if (string.IsNullOrWhiteSpace(searchText))
-            {
+            List<StorageLocation> locations = GetFilteredLocations();
 
-                locations = _locationManager.GetAll();
-
-            }
-            else
-            {
-
-                locations = _locationManager.FindbyName(searchText);
-            }
-
-            listBoxStorageLocations.Items.Clear();
-            foreach (var location in locations)
-            {
-                listBoxStorageLocations.Items.Add($"{location.Name} - {location.Description}");
-            }
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelItemsWhat_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelStorageLocationsWhat_Click(object sender, EventArgs e)
-        {
-
+            listBoxStorageLocations.DataSource = null;
+            listBoxStorageLocations.DataSource = locations;
         }
 
         private void buttonAddItem_Click(object sender, EventArgs e)
@@ -162,24 +137,12 @@ namespace Lociem
 
         private void buttonEditStorageLocation_Click(object sender, EventArgs e)
         {
-            if (listBoxStorageLocations.SelectedIndex == -1)
+            if (listBoxStorageLocations.SelectedItem is not StorageLocation location)
             {
                 MessageBox.Show("Please select a location to edit.");
                 return;
             }
 
-            string searchText = textBoxSearchStorageLocations.Text;
-            List<StorageLocation> locations;
-            if (string.IsNullOrWhiteSpace(searchText))
-            {
-                locations = _locationManager.GetAll();
-            }
-            else
-            {
-                locations = _locationManager.FindbyName(searchText);
-            }
-
-            var location = locations[listBoxStorageLocations.SelectedIndex];
             var form = new EditStorageLocation(location.Name, location.Description);
 
             if (form.ShowDialog() == DialogResult.OK)
@@ -206,7 +169,7 @@ namespace Lociem
 
         private void buttonDeleteStorageLocation_Click(object sender, EventArgs e)
         {
-            if(listBoxStorageLocations.SelectedIndex == -1)
+            if (listBoxStorageLocations.SelectedItem is not StorageLocation location)
             {
 
                 MessageBox.Show("Please select a storage location to delete.");
@@ -215,19 +178,7 @@ namespace Lociem
 
             else
             {
-                string searchText = textBoxSearchStorageLocations.Text;
-                List<StorageLocation> locations;
-                if (string.IsNullOrWhiteSpace(searchText))
-                {
-                    locations = _locationManager.GetAll();
-                }
-                else
-                {
-                    locations = _locationManager.FindbyName(searchText);
-                }
-
                 var items = _itemManager.GetAll();
-                var location = locations[listBoxStorageLocations.SelectedIndex];
 
                
                 try {

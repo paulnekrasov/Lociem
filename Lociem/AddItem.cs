@@ -21,6 +21,7 @@ namespace Lociem
         public AddItem(List<StorageLocation> storageLocations)
         {
             InitializeComponent();
+
             if (storageLocations != null)
             {
                 _storageLocations.AddRange(storageLocations);
@@ -28,7 +29,8 @@ namespace Lociem
 
             comboBox1.DataSource = _storageLocations;
             comboBox1.DisplayMember = nameof(StorageLocation.Name);
-            comboBox1.SelectedIndex = _storageLocations.Count > 0 ? 0 : -1;
+            comboBox1.SelectedIndex = -1;
+            comboBox1.Text = "Select storage location";
         }
 
     

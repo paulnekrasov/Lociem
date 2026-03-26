@@ -29,7 +29,7 @@ namespace Lociem.Managers
             SaveToFile();
         }
 
-        public override List<StorageLocation> FindbyName(string name)
+        public override List<StorageLocation> FindByName(string name)
         {
             ArgumentException.ThrowIfNullOrWhiteSpace(name);
             return _entities.Where(i => i.Name.Contains(name, StringComparison.OrdinalIgnoreCase)).ToList();

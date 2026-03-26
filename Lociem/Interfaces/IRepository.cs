@@ -1,8 +1,4 @@
-﻿using Lociem.Models;
-using System;
-using System.Collections.Generic;
-using System.Reflection.Metadata;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Lociem.Interfaces
 {
@@ -12,8 +8,8 @@ namespace Lociem.Interfaces
         void Add(T item);
         void Delete(T item);
         void Update(T item);
-        List<T> FindbyName(string name); 
-        T? FindbyId(int id);
+        List<T> FindByName(string name); 
+        T? FindById(int id);
         List<T> GetAll();
     }
 }
