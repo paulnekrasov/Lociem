@@ -38,6 +38,7 @@ namespace Lociem.Tests
             var itemManager = new ItemManager(dataManager);
             var storageLocation = new StorageLocation("Castle", "A place for the storing the swords");
             var item = new Item("Sword", "A sharp blade", storageLocation);
+            itemManager.Add(item);
 
             var result = Record.Exception(() => itemManager.Delete(item));
             Assert.Null(result);
@@ -50,6 +51,7 @@ namespace Lociem.Tests
             var itemManager = new ItemManager(dataManager);
             var storageLocation = new StorageLocation("Castle", "A place for the storing the swords");
             var item = new Item("Sword", "A sharp blade", storageLocation);
+            itemManager.Add(item);
 
             Assert.Throws<InvalidOperationException>(() => itemManager.Update(item));
         }
